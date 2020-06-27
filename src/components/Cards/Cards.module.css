@@ -22,3 +22,12 @@
 {
     border-bottom: 10px solid rgba(255, 0, 0);
 }
+
+@media(max-width:770px)
+{
+    .cards
+    {
+        margin: 2% 0!important;
+        box-shadow:  4px 4px rgb(95, 91, 91)
+    }
+}
