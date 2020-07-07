@@ -5,22 +5,27 @@ import Countup from 'react-countup';
 import cx from 'classnames';
 function Cards({data: {confirmed,recovered,deaths,lastUpdate}}){
 
+    const types=[confirmed,recovered,deaths];
+    const names=["Infected","Recovered","Deaths"]
+
     if(!confirmed)
     {
         return 'Loading..'
     }
     return(
+        
         <div className={styles.container}>
             <Grid container spacing={3} justify="center">
-                <Grid item component={Card}  xs={12} md={3} className={cx(styles.cards,styles.infected)}>
+            {types.map((type,i) => 
+
+                <Grid item component={Card}  xs={12} md={3} className={cx(styles.cards,styles.type)}>
                     <CardContent>
                         <Typography color="textSecondary" gutterBottom>
-                            Infected
+                            {names[i]}
                         </Typography>
-                        <Typography variant="h5">
-                            <Countup 
+                        <Typography variant="h5">                       <Countup 
                             start={0}
-                            end={confirmed.value}
+                            end={type.value}
                             duration={2.5}
                             separator=","
                             />
@@ -35,54 +40,14 @@ function Cards({data: {confirmed,recovered,deaths,lastUpdate}}){
                     </CardContent>
 
                 </Grid>
-                <Grid item component={Card} xs={12} md={3} className={cx(styles.cards,styles.recovered)}>
-                    <CardContent>
-                        <Typography color="textSecondary" gutterBottom>
-                            Recovered
-                        </Typography>
-                        <Typography variant="h5">
-                        <Countup 
-                            start={0}
-                            end={recovered.value}
-                            duration={2.5}
-                            separator=","
-                            />                        </Typography>
-                        <Typography color="textSecondary">
-                        {new Date(lastUpdate).toDateString()}
-                        </Typography>
-                        <Typography variant="body2">
-                            Number of active cases of covid
-                        </Typography>
-
-                    </CardContent>
-
-                </Grid>
-                <Grid item component={Card} xs={12} md={3} className={cx(styles.cards,styles.deaths)}>
-                    <CardContent>
-                        <Typography color="textSecondary" gutterBottom>
-                            Death
-                        </Typography>
-                        <Typography variant="h5">
-                        <Countup 
-                            start={0}
-                            end={deaths.value}
-                            duration={2.5}
-                            separator=","
-                            />                        </Typography>
-                        <Typography color="textSecondary">
-                        {new Date(lastUpdate).toDateString()}
-                        </Typography>
-                        <Typography variant="body2">
-                            Number of active cases of covid
-                        </Typography>
-
-                    </CardContent>
-
-                </Grid>
+            )}
+                
+     
             </Grid>
         </div>
 
     )
+    
 }
 
 export default Cards;
